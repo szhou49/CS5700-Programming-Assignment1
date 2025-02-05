@@ -12,8 +12,8 @@ class Client:
     def connect(self, server_address):
         self.client_socket.connect(server_address)
         client_num = int(input("Enter an integer: "))
-        message = self.client_name  + "," + str(client_num)
-        print("The message to be sent is: " + message)
+        message = f"{self.client_name},{client_num}"
+        print(f"The message to be sent is: {message}")
         self.client_socket.sendall(message.encode())
         print("Message is sent successfully!")
         response = self.client_socket.recv(1024).decode()
@@ -22,11 +22,10 @@ class Client:
             data = response.split(",")
             server_name = data[0]
             server_num = int(data[1])
-            print("Client's name: " + self.client_name + "\n" + "Server's name: " + server_name + "\n"
-                    + "Client's number: " + str(client_num) + "\n" + "Server's number: " + str(server_num) + "\n" + "The sum is: " + str(client_num + server_num))
+            print(f"Client's name: {self.client_name}\nServer's name: {server_name}\nClient's number: {client_num}\nServer's number: {server_num}\nThe sum is: {client_num + server_num}")
         except:
             print("Response has error\n")
         self.client_socket.close()
         
 client = Client()
-client.connect(('10.245.219.114', 8080))
+client.connect(('10.245.203.34', 8080))
